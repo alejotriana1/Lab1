@@ -69,37 +69,35 @@ Finally, we use the *rosshutdown* command to terminate the connection node betwe
 rosshutdown;
 
 ```
-
-## Python
-
-Then Python is used to run scripts, the first script is called myTeleopKey.py; in this way it is important to achieve the next objectives:
+##Python
+Then Python is used to run scripts, the first script is called *myTeleopKey.py*; in this way it is important to achieve the next objectives:
 
 - Move forward with key W and move backwards with the key S
 - Turn around the turtle simulation with the key A clockwise and key D counterclockwise.
 - Send the turtle back in the initial position and orientation with the key R.
 - Finally the turtle has to make a 180 flip with the key ESPACIO.
 
-In order to program those objectives is needed to import the following libraries, 
-then Some code is used from the script turtlevel.py. This code was used just to run 
+In order to program those objectives is needed to import the following libraries.
+Then some code is used from the script *turtlevel.py*. This code was used just to run 
 the correct commands to set position and orientation with the given keys.
 ```python
 from pynput.keyboard import Key, Listener, KeyCode
 import rospy
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist 
 from turtlesim.srv import TeleportAbsolute, TeleportRelative
 import termios, sys, os
 import numpy as np
 from std_srvs.srv import Empty
 
 def pubVel(vel_x, ang_z, t):
-pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
-rospy.init_node('velPub', anonymous=False)
-vel = Twist()
-vel.linear.x = vel_x
-vel.angular.z = ang_z
-endTime = rospy.Time.now() + rospy.Duration(t)
-while rospy.Time.now() < endTime:
-pub.publish(vel)
+    pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
+    rospy.init_node('velPub', anonymous=False)
+    vel = Twist()
+    vel.linear.x = vel_x
+    vel.angular.z = ang_z
+    endTime = rospy.Time.now() + rospy.Duration(t)
+    while rospy.Time.now() < endTime:
+        pub.publish(vel)
 ```
 
 
