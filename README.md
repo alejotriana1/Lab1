@@ -144,6 +144,7 @@ def on_release(key):
     if key == Key.esc:
         return False
 ```
+[![Captura-de-pantalla-de-2022-04-07-23-04-05.png](https://i.postimg.cc/QNws0pfz/Captura-de-pantalla-de-2022-04-07-23-04-05.png)](https://postimg.cc/mhY0rFf3)
 
 Finally it is important to relate this new file into the launch file
 and also into the part *catkin install python*  file*CMakeLists.txt*. After that
