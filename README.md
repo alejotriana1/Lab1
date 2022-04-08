@@ -69,7 +69,7 @@ Finally, we use the *rosshutdown* command to terminate the connection node betwe
 rosshutdown;
 
 ```
-##Python
+## Python
 Then Python is used to run scripts, the first script is called *myTeleopKey.py*; in this way it is important to achieve the next objectives:
 
 - Move forward with key W and move backwards with the key S
@@ -88,7 +88,6 @@ from turtlesim.srv import TeleportAbsolute, TeleportRelative
 import termios, sys, os
 import numpy as np
 from std_srvs.srv import Empty
-
 def pubVel(vel_x, ang_z, t):
     pub = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
     rospy.init_node('velPub', anonymous=False)
@@ -99,5 +98,3 @@ def pubVel(vel_x, ang_z, t):
     while rospy.Time.now() < endTime:
         pub.publish(vel)
 ```
-
-
