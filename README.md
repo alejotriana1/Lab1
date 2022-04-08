@@ -98,3 +98,53 @@ def pubVel(vel_x, ang_z, t):
     while rospy.Time.now() < endTime:
         pub.publish(vel)
 ```
+Ok, this is not a brand new, so the next code shows how the keyboard and the specific keys are 
+Identified and then these commands are related with the service TeleportRelative, in this way 
+The k is linked to this service and the turtle is going to move fluently depending on the given 
+
+```python
+def on_press(key):
+    if key == KeyCode.from_char('w'):
+        pubVel(1,0,2.2)
+
+    if key == KeyCode.from_char('s'):
+        pubVel(-1,0,2.2)
+
+    if key == KeyCode.from_char('d'):
+        pubVel(0,-1/2,2.2)
+
+    if key == KeyCode.from_char('a'):
+        pubVel(0,1/2,2.1)
+
+    if key == Key.space:
+        try:
+            rospy.wait_for_service('/turtle1/teleport_relative')
+            rotateTurtle = rospy.ServiceProxy('/turtle1/teleport_relative', TeleportRelative)
+            moveRsp = rotateTurtle(0, np.pi)
+
+            rospy.loginfo('Turtle rotated')
+        except rospy.ServiceException as e:
+            rospy.logwarn("Service teleport_relative call failed")
+
+    if key == KeyCode.from_char('r'):
+        try:
+            rospy.wait_for_service('/turtle1/teleport_absolute')
+            resetTurtle = rospy.ServiceProxy('/turtle1/teleport_absolute', TeleportAbsolute)
+            resetRsp = resetTurtle(6,6, np.pi)
+
+            rospy.wait_for_service('/clear')
+            clearTraje = rospy.ServiceProxy('/clear', Empty)
+            resetRsp = clearTraje()
+
+            rospy.loginfo('Turtle reset')
+        except rospy.ServiceException as e:
+            rospy.logwarn("Service teleport_absolute call failed")
+
+def on_release(key):
+    if key == Key.esc:
+        return False
+```
+
+Finally it is important to relate this new file into the launch file
+and also into the part *catkin install python*  file*CMakeLists.txt*. After that
+the program is ready to be used. 
