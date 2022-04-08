@@ -70,7 +70,7 @@ rosshutdown;
 
 ```
 ## Python
-Then Python is used to run scripts, the first script is called *myTeleopKey.py*; in this way it is important to achieve the next objectives:
+Then Python is used to run scripts, the first script is called *myKeyControl.py*; in this way it is important to achieve the next objectives:
 
 - Move forward with key W and move backwards with the key S
 - Turn around the turtle simulation with the key A clockwise and key D counterclockwise.
